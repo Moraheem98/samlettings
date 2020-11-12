@@ -16,8 +16,9 @@ class PropertiesController < ApplicationController
 
   def create
     @property = Property.new(property_params)
-    if @property_new.save
-      redirect_to new_property_path
+    if @property.save
+      flash[:success] = "Your property Has been listed"
+      redirect_to properties_path
     else
       render :new
     end
@@ -30,7 +31,7 @@ class PropertiesController < ApplicationController
   def update
     @property = Property.find(params[:id])
     @property.update(property_params)
-    #redirect_to user_path(current_user)
+    redirect_to user_path(current_user)
   end
 
   def destroy
@@ -42,6 +43,6 @@ class PropertiesController < ApplicationController
   private
 
   def property_params
-    #params.require(:property).permit()
+    params.require(:property).permit(:property_type, :bedrooms, :bathrooms, :reception_rooms, :description, :price, :property_sub_type, :address)
   end
 end
