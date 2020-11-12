@@ -4,6 +4,14 @@ class PropertiesController < ApplicationController
   def index
     @properties = Property.all
     @properties_all = Property.all
+    if !params[:query].nil?
+      @properties = Property.where('property_type ILIKE ?', params[:query])
+    end
+    if !params[:search].nil?
+      params[:search].each do |key, value|
+        @properties = @properties.where(key => value) if value.present?
+      end
+    end
   end
 
   def show
@@ -16,8 +24,9 @@ class PropertiesController < ApplicationController
 
   def create
     @property = Property.new(property_params)
-    if @property_new.save
-      redirect_to new_property_path
+    if @property.save
+      flash[:success] = "Your property Has been listed"
+      redirect_to properties_path
     else
       render :new
     end
@@ -30,7 +39,7 @@ class PropertiesController < ApplicationController
   def update
     @property = Property.find(params[:id])
     @property.update(property_params)
-    #redirect_to user_path(current_user)
+    redirect_to user_path(current_user)
   end
 
   def destroy
@@ -42,6 +51,6 @@ class PropertiesController < ApplicationController
   private
 
   def property_params
-    #params.require(:property).permit()
+    params.require(:property).permit(:property_type, :bedrooms, :bathrooms, :reception_rooms, :description, :price, :property_sub_type, :address)
   end
 end
