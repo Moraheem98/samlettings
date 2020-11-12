@@ -4,6 +4,14 @@ class PropertiesController < ApplicationController
   def index
     @properties = Property.all
     @properties_all = Property.all
+    if !params[:query].nil?
+      @properties = Property.where('property_type ILIKE ?', params[:query])
+    end
+    if !params[:search].nil?
+      params[:search].each do |key, value|
+        @properties = @properties.where(key => value) if value.present?
+      end
+    end
   end
 
   def show

@@ -1,3 +1,16 @@
-<div>
-  <h1>property edit page</h1>
+<div class="container">
+  <h1>Edit this Property</h1>
+   <%= simple_form_for @property do |f| %>
+  <div>
+    <%= f.input :property_type %>
+    <%= f.input :property_sub_type %>
+    <%= f.input :bathrooms %>
+    <%= f.input :bedrooms %>
+    <%= f.input :reception_rooms %>
+    <%= f.input :price %>
+    <%= f.input :address %>
+    <%= f.input :description %>
+    <%= f.button :submit, class: "btn-dark" %>
+  </div>
+  <% end %>
 </div>
