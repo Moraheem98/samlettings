@@ -1,5 +1,16 @@
 <div class="container">
-  <h1>Add a new TV</h1>
-
-
+  <h1>Add a new Property</h1>
+   <%= simple_form_for @property do |f| %>
+  <div>
+    <%= f.input :property_type %>
+    <%= f.input :property_sub_type %>
+    <%= f.input :bathrooms %>
+    <%= f.input :bedrooms %>
+    <%= f.input :reception_rooms %>
+    <%= f.input :price %>
+    <%= f.input :address %>
+    <%= f.input :description %>
+    <%= f.button :submit, class: "btn btn-main" %>
+  </div>
+  <% end %>
 </div>
